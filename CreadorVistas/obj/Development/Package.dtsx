@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/10/2024 3:43:35 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-VIICDOB"
+  DTS:CreatorName="DESKTOP-VIICDOB\Marcos"
+  DTS:DTSID="{8379D1A0-20B1-44A4-ADA0-01FE7C8282E7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{7504F6FA-2397-47C4-9FAE-C61BBA63934D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.NORTHWND.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A91C8471-D449-4B7A-872A-5FFA8EA01620}"
+      DTS:ObjectName="localhost.NORTHWND.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;User ID=sa;Initial Catalog=NORTHWND;Provider=SQLNCLI11.1;Application Name=SSIS-Package-{A91C8471-D449-4B7A-872A-5FFA8EA01620}localhost.NORTHWND.sa;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAVtiRXuxPPUOKKvXQ2D5EjgAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAAUpM+8SAIQRPXdS85sd83b7D6oFeWTiRCAXMuaJjHrFAAAAAAOgAAAAAIAACAAAAAa9NOvJsTI4VfRg9JxhRHDVFHlsIy+U0laIVthkdsl9RAAAADdX4A0txRqCiYey6FRVwLAQAAAACqM9eC34PE7BgNttI9AZ3/U9xShrdmBR+7pAgbVGjE7PrQzpiIBgvXaAaBNBBUupWYSkpF10JUvi/fkug60y+Y</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.NORTHWND_Copy.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F74DD62D-46A5-4C53-86CD-118D9D895DD6}"
+      DTS:ObjectName="localhost.NORTHWND_Copy.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;User ID=sa;Initial Catalog=NORTHWND_Copy;Provider=SQLNCLI11.1;Application Name=SSIS-Package-{F74DD62D-46A5-4C53-86CD-118D9D895DD6}localhost.NORTHWND_Copy.sa;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAVtiRXuxPPUOKKvXQ2D5EjgAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAD90iZS94H5qdBZkJRvmETNgFyxzIbBfgDNO5F5yPo4UwAAAAAOgAAAAAIAACAAAAA8jlVbtFoVqlAM/nnVlTSeIfA+yweVT6L+yEZSjAFk9BAAAACN2s0SNwoxw1GBs5JBDOcgQAAAAHRDEVDocy7o0W0659E5FmCuPJGSjDHZRvz9wJs0CE6br2UYO5oePvEsTJQj9VJwjxgRoYpr8XHk4OBeK8qD1Ds</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Crear vista Customer"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{50FAC03D-B888-4BAD-85A8-D8BF4F37A6EB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Crear vista Customer"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F74DD62D-46A5-4C53-86CD-118D9D895DD6}"
+          SQLTask:SqlStatementSource="IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'VW_CustomerInfo')&#xA;BEGIN&#xA;    DROP VIEW VW_CustomerInfo;&#xA;END&#xA;GO&#xA;&#xA;CREATE VIEW VW_CustomerInfo AS&#xA;SELECT &#xA;    c.CustomerID, &#xA;    c.CompanyName, &#xA;    c.City, &#xA;    c.Country, &#xA;    cd.CustomerDesc&#xA;FROM NORTHWND.dbo.Customers c&#xA;INNER JOIN NORTHWND.dbo.CustomerCustomerDemo ccd ON c.CustomerID = ccd.CustomerID&#xA;INNER JOIN NORTHWND.dbo.CustomerDemographics cd ON ccd.CustomerTypeID = cd.CustomerTypeID;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Crear vista pedido"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{5B9E74E1-5A9D-4AFA-AFEE-3ACF5D6058EF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Crear vista pedido"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F74DD62D-46A5-4C53-86CD-118D9D895DD6}"
+          SQLTask:SqlStatementSource="IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'VW_Pedido')&#xA;BEGIN&#xA;    DROP VIEW VW_Pedido;&#xA;END&#xA;GO&#xA;&#xA;CREATE VIEW VW_Pedido AS&#xA;SELECT &#xA;    o.OrderID, &#xA;    o.CustomerID, &#xA;    o.EmployeeID, &#xA;    o.OrderDate, &#xA;    o.RequiredDate, &#xA;    o.ShippedDate, &#xA;    o.ShipVia, &#xA;    o.ShipCity, &#xA;    o.ShipRegion, &#xA;    od.ProductID, &#xA;    od.UnitPrice, &#xA;    od.Quantity, &#xA;    od.Discount, &#xA;    od.UnitPrice * od.Quantity - od.UnitPrice * od.Quantity * od.Discount AS SubTotal, &#xA;    r.RegionID, &#xA;    et.TerritoryID,&#xA;    e.LastName,&#xA;    e.FirstName,&#xA;    e.BirthDate&#xA;FROM NORTHWND.dbo.Orders o&#xA;INNER JOIN NORTHWND.dbo.[Order Details] od ON o.OrderID = od.OrderID &#xA;INNER JOIN NORTHWND.dbo.Employees e ON o.EmployeeID = e.EmployeeID &#xA;INNER JOIN NORTHWND.dbo.EmployeeTerritories et ON e.EmployeeID = et.EmployeeID &#xA;INNER JOIN NORTHWND.dbo.Territories t ON et.TerritoryID = t.TerritoryID &#xA;INNER JOIN NORTHWND.dbo.Region r ON t.RegionID = r.RegionID;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Crear vista ProductoInfo"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{B333481F-8249-4BD4-BC17-6D2DE0D05FBF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Crear vista ProductoInfo"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F74DD62D-46A5-4C53-86CD-118D9D895DD6}"
+          SQLTask:SqlStatementSource="IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'VW_ProductInfo')&#xA;BEGIN&#xA;    DROP VIEW VW_ProductInfo;&#xA;END&#xA;GO&#xA;&#xA;CREATE VIEW VW_ProductInfo AS&#xA;SELECT &#xA;    p.ProductID, &#xA;    p.ProductName, &#xA;    s.CompanyName, &#xA;    s.City, &#xA;    s.Country, &#xA;    c.CategoryName, &#xA;    p.QuantityPerUnit, &#xA;    p.UnitPrice&#xA;FROM NORTHWND.dbo.Products p&#xA;INNER JOIN NORTHWND.dbo.Categories c ON p.CategoryID = c.CategoryID&#xA;INNER JOIN NORTHWND.dbo.Suppliers s ON p.SupplierID = s.SupplierID;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Ejecutar SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{8C3A6C4A-2368-42E5-A191-49EBCC445D88}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Ejecutar SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F74DD62D-46A5-4C53-86CD-118D9D895DD6}"
+          SQLTask:SqlStatementSource="IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'VW_OrderDetails')&#xA;BEGIN&#xA;    DROP VIEW VW_OrderDetails;&#xA;END&#xA;GO&#xA;&#xA;CREATE VIEW VW_OrderDetails AS&#xA;SELECT &#xA;    OD.OrderID, &#xA;    OD.ProductID, &#xA;    P.ProductName, &#xA;    OD.Quantity, &#xA;    OD.UnitPrice, &#xA;    OD.Discount, &#xA;    OD.Status&#xA;FROM NORTHWND.dbo.[Order Details] AS OD &#xA;INNER JOIN NORTHWND.dbo.Products AS P ON OD.ProductID = P.ProductID;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{FFCF18F6-444B-4388-81E9-89EB555E16C9}"
+      DTS:From="Package\Crear vista pedido"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Crear vista ProductoInfo" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{5CAA5864-8EBA-4A74-A701-D2EF23C1113A}"
+      DTS:From="Package\Crear vista ProductoInfo"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\Crear vista Customer" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{122136E6-59FD-40FA-AD69-28F5E675D2B4}"
+      DTS:From="Package\Crear vista Customer"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 2"
+      DTS:To="Package\Tarea Ejecutar SQL" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Crear vista pedido"
+          TopLeft="487,132" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Crear vista Customer"
+          TopLeft="477,293" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Crear vista ProductoInfo"
+          TopLeft="486,214" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="574.75,174">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="578.5,256">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10,37"
+              Start="0,0"
+              End="-10,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5"
+                    Point2="0,18.5"
+                    Point3="-4,18.5" />
+                  <mssgle:LineSegment
+                    End="-6,18.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6,18.5"
+                    Point2="-10,18.5"
+                    Point3="-10,22.5" />
+                  <mssgle:LineSegment
+                    End="-10,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Tarea Ejecutar SQL"
+          TopLeft="519,418" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 2]"
+          TopLeft="568.5,335">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38.5,83"
+              Start="0,0"
+              End="38.5,75.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,37.5"
+                    Point2="0,41.5"
+                    Point3="4,41.5" />
+                  <mssgle:LineSegment
+                    End="34.5,41.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="34.5,41.5"
+                    Point2="38.5,41.5"
+                    Point3="38.5,45.5" />
+                  <mssgle:LineSegment
+                    End="38.5,75.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
